@@ -36,6 +36,36 @@ def makeAMove():
                     if(arr[j-1][k] == 0):
                         arr[j-1][k] = arr[j][k]
                         arr[j][k] = 0
+    if(move == 'a'):
+        for i in range(1, y, 1):
+            for j in range(i, 0, -1):
+                for k in range(0, x, 1):
+                    if(arr[k][j] == arr[k][j-1]):
+                        arr[k][j-1] *= 2
+                        arr[k][j] = 0
+                    if(arr[k][j-1] == 0):
+                        arr[k][j-1] = arr[k][j]
+                        arr[k][j] = 0
+    if(move == 's'):
+        for i in range(x-2, -1, -1):
+            for j in range(i, x-1, 1):
+                for k in range(0, y, 1):
+                    if(arr[j][k] == arr[j+1][k]):
+                        arr[j+1][k] *= 2
+                        arr[j][k] = 0
+                    if(arr[j+1][k] == 0):
+                        arr[j+1][k] = arr[j][k]
+                        arr[j][k] = 0
+    if(move == 'd'):
+        for i in range(y-2, -1, -1):
+            for j in range(i, y-1, 1):
+                for k in range(0, x, 1):
+                    if(arr[k][j] == arr[k][j+1]):
+                        arr[k][j+1] *= 2
+                        arr[k][j] = 0
+                    if(arr[k][j+1] == 0):
+                        arr[k][j+1] = arr[k][j]
+                        arr[k][j] = 0
 
 
 def printMat():
