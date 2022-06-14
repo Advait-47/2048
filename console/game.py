@@ -1,21 +1,41 @@
 from math import floor
 import random
 from time import sleep
-from tkinter.tix import MAIN
 import numpy as np
+# from pip import main
 
-arr = np.zeros((4, 4), int)
+x = int(4)
+y = int(4)
+
+arr = np.zeros((x, y), int)
 random.seed()
 
 
 def generateNextCell():
-    x = floor((random.random())*16)
-    if(arr[x//4][x % 4] == 0):
-        y = floor(random.random()*10)
-        if(y < 1):
-            arr[x//4][x % 4] = 4
-        else:
-            arr[x//4][x % 4] = 2
+    while(1):
+        rnum = floor((random.random())*(x*y))
+        if(arr[rnum//x][rnum % y] == 0):
+            genNewNumProb = floor(random.random()*10)
+            if(genNewNumProb < 1):
+                arr[rnum//x][rnum % y] = 4
+            else:
+                arr[rnum//x][rnum % y] = 2
+            break
+
+
+def makeAMove():
+    move = input()
+
+    if(move == 'w'):
+        for i in range(1, x, 1):
+            for j in range(i, 0, -1):
+                for k in range(0, y, 1):
+                    if(arr[j][k] == arr[j-1][k]):
+                        arr[j-1][k] *= 2
+                        arr[j][k] = 0
+                    if(arr[j-1][k] == 0):
+                        arr[j-1][k] = arr[j][k]
+                        arr[j][k] = 0
 
 
 def printMat():
@@ -25,6 +45,20 @@ def printMat():
         print("\n")
 
 
+def allFilled():
+    flag = True
+    for i in range(0, x, 1):
+        for j in range(0, y, 1):
+            if(arr[i][j] == 0):
+                flag = False
+    return flag
+
+
 if __name__ == "__main__":
     generateNextCell()
+    while(not(allFilled())):
+        printMat()
+        makeAMove()
+        generateNextCell()
     printMat()
+    print("Game Over!")
