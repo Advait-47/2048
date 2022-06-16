@@ -69,10 +69,15 @@ def makeAMove():
 
 
 def printMat():
-    for i in range(4):
-        for j in range(4):
-            print(arr[i][j], end=" ")
-        print("\n")
+    print("")
+    cellString = "{: <5} "
+    rowString = y*cellString
+    for row in arr:
+        print(rowString.format(*row))
+        # for j in range(4):
+        #     print(arr[i][j], end=" ")
+        # print("\n")
+    print("")
 
 
 def allFilled():
