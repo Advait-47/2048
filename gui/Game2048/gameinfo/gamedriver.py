@@ -15,6 +15,10 @@ class driver:
     score = 0
 
     def __init__(self, WIN):
+        file = open("hScore.txt", "r")
+        self.highScore = int(file.read())
+        file.close()
+
         self.arr = np.zeros((x, y), int)
         self.palette = Board(WIN)
 
@@ -108,6 +112,11 @@ class driver:
                         self.score += self.arr[j][i+1]
                         self.arr[j][i] = 0
                         randOrNot = True
+
+        if(self.score > self.highScore):
+            file = open("hScore.txt", "w")
+            file.write(str(self.score))
+            file.close()
         return randOrNot
 
     def printMat(self, WIN):

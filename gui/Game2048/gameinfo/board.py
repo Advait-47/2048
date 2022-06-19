@@ -8,6 +8,9 @@ pygame.init()
 
 class Board:
     def __init__(self, WIN):
+        file = open("hScore.txt", "r")
+        self.highScore = file.read()
+        file.close()
         pass
 
     def boardChange(self, arr, WIN, score):
@@ -33,6 +36,7 @@ class Board:
                     (SQUARE_SIZE*j)+((j+1)*PADDING)+(SQUARE_SIZE//2), (SQUARE_SIZE*i) + ((i+1)*PADDING) + (SQUARE_SIZE//2))
                 WIN.blit(text, textRect)
 
+        font = pygame.font.SysFont('arial', 40, bold=True)
         text = font.render("Score:", True, WHITE, None)
         textRect = text.get_rect()
         textRect.center = (100, 700)  # HEIGHT+((WIN_HEIGHT-HEIGHT)//2)
@@ -40,7 +44,17 @@ class Board:
 
         text = font.render(str(score), True, WHITE, None)
         textRect = text.get_rect()
-        textRect.center = (250, 700)  # HEIGHT+((WIN_HEIGHT-HEIGHT)//2)
+        textRect.center = (200, 700)  # HEIGHT+((WIN_HEIGHT-HEIGHT)//2)
+        WIN.blit(text, textRect)
+
+        text = font.render("Best:", True, WHITE, None)
+        textRect = text.get_rect()
+        textRect.center = (350, 700)  # HEIGHT+((WIN_HEIGHT-HEIGHT)//2)
+        WIN.blit(text, textRect)
+
+        text = font.render(self.highScore, True, WHITE, None)
+        textRect = text.get_rect()
+        textRect.center = (500, 700)  # HEIGHT+((WIN_HEIGHT-HEIGHT)//2)
         WIN.blit(text, textRect)
         pygame.display.update()
 
