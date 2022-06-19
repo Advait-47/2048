@@ -5,8 +5,8 @@ import numpy as np
 from .board import *
 
 pygame.init()
-x = int(4)
-y = int(4)
+x = int(ROWS)
+y = int(COLS)
 
 random.seed()
 
@@ -29,23 +29,16 @@ class driver:
 
     def makeAMove(self, move):
         r1 = r2 = r3 = False
-        #move = input()
         r1 = self.swipeTile(move, r1)
-        # printMat()
         r2 = self.mergeTile(move, r2)
-        # printMat()
         r3 = self.swipeTile(move, r3)
         return (r1 or r2 or r3)
-        # printMat()
 
     def swipeTile(self, move, randOrNot):
         if(move == 'w'):
             for i in range(1, x, 1):
                 for j in range(i, 0, -1):
                     for k in range(0, y, 1):
-                        # if(self.arr[j][k] == self.arr[j-1][k]):
-                        #     self.arr[j-1][k] *= 2
-                        #     self.arr[j][k] = 0
                         if(self.arr[j-1][k] == 0 and self.arr[j][k] != 0):
                             self.arr[j-1][k] = self.arr[j][k]
                             self.arr[j][k] = 0
@@ -55,9 +48,6 @@ class driver:
             for i in range(1, y, 1):
                 for j in range(i, 0, -1):
                     for k in range(0, x, 1):
-                        # if(self.arr[k][j] == self.arr[k][j-1]):
-                        #     self.arr[k][j-1] *= 2
-                        #     self.arr[k][j] = 0
                         if(self.arr[k][j-1] == 0 and self.arr[k][j] != 0):
                             self.arr[k][j-1] = self.arr[k][j]
                             self.arr[k][j] = 0
@@ -67,9 +57,6 @@ class driver:
             for i in range(x-2, -1, -1):
                 for j in range(i, x-1, 1):
                     for k in range(0, y, 1):
-                        # if(self.arr[j][k] == self.arr[j+1][k]):
-                        #     self.arr[j+1][k] *= 2
-                        #     self.arr[j][k] = 0
                         if(self.arr[j+1][k] == 0 and self.arr[j][k] != 0):
                             self.arr[j+1][k] = self.arr[j][k]
                             self.arr[j][k] = 0
@@ -79,9 +66,6 @@ class driver:
             for i in range(y-2, -1, -1):
                 for j in range(i, y-1, 1):
                     for k in range(0, x, 1):
-                        # if(self.arr[k][j] == self.arr[k][j+1]):
-                        #     self.arr[k][j+1] *= 2
-                        #     self.arr[k][j] = 0
                         if(self.arr[k][j+1] == 0 and self.arr[k][j] != 0):
                             self.arr[k][j+1] = self.arr[k][j]
                             self.arr[k][j] = 0
@@ -89,7 +73,6 @@ class driver:
         return randOrNot
 
     def mergeTile(self, move, randOrNot):
-        #randOrNot = False
         if(move == 'w'):
             for i in range(1, x, 1):
                 for j in range(0, y, 1):
@@ -124,15 +107,12 @@ class driver:
     def printMat(self, WIN):
         self.palette.boardChange(self.arr, WIN)
 
-        print("")
-        cellString = "{: <5} "
-        rowString = y*cellString
-        for row in self.arr:
-            print(rowString.format(*row))
-            # for j in range(4):
-            #     print(self.arr[i][j], end=" ")
-            # print("\n")
-        print("")
+        # print("")
+        # cellString = "{: <5} "
+        # rowString = y*cellString
+        # for row in self.arr:
+        #     print(rowString.format(*row))
+        # print("")
 
     def allFilled(self):
         flag = True
@@ -141,6 +121,9 @@ class driver:
                 if(self.arr[i][j] == 0):
                     flag = False
         return flag
+
+    def gameOver(self, WIN):
+        self.palette.gameOver(WIN)
 
 
 # if __name__ == "__main__":
