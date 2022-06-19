@@ -7,13 +7,13 @@ pygame.init()
 FPS = 60
 
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption('Checkers')
+pygame.display.set_caption('2048')
 
 
 def main():
     run = True
     clock = pygame.time.Clock()
-    game = driver()
+    game = driver(WIN)
 
     while(run):
         clock.tick(FPS)

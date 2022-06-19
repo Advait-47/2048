@@ -12,9 +12,9 @@ random.seed()
 
 
 class driver:
-    def __init__(self):
+    def __init__(self, WIN):
         self.arr = np.zeros((x, y), int)
-        self.palette = Board()
+        self.palette = Board(WIN)
 
     def generateNextCell(self):
         while(1):
