@@ -1,0 +1,8 @@
+import pygame
+
+WIDTH, HEIGHT = 400, 400
+ROWS, COLS = 4, 4
+FONT_SIZE = 20
+SQUARE_SIZE = WIDTH//COLS
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
