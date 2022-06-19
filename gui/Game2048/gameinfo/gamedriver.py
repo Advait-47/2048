@@ -28,15 +28,17 @@ class driver:
                 break
 
     def makeAMove(self, move):
+        r1 = r2 = r3 = False
         #move = input()
-        self.swipeTile(move)
+        r1 = self.swipeTile(move, r1)
         # printMat()
-        self.mergeTile(move)
+        r2 = self.mergeTile(move, r2)
         # printMat()
-        self.swipeTile(move)
+        r3 = self.swipeTile(move, r3)
+        return (r1 or r2 or r3)
         # printMat()
 
-    def swipeTile(self, move):
+    def swipeTile(self, move, randOrNot):
         if(move == 'w'):
             for i in range(1, x, 1):
                 for j in range(i, 0, -1):
@@ -44,9 +46,11 @@ class driver:
                         # if(self.arr[j][k] == self.arr[j-1][k]):
                         #     self.arr[j-1][k] *= 2
                         #     self.arr[j][k] = 0
-                        if(self.arr[j-1][k] == 0):
+                        if(self.arr[j-1][k] == 0 and self.arr[j][k] != 0):
                             self.arr[j-1][k] = self.arr[j][k]
                             self.arr[j][k] = 0
+                            randOrNot = True
+
         if(move == 'a'):
             for i in range(1, y, 1):
                 for j in range(i, 0, -1):
@@ -54,9 +58,11 @@ class driver:
                         # if(self.arr[k][j] == self.arr[k][j-1]):
                         #     self.arr[k][j-1] *= 2
                         #     self.arr[k][j] = 0
-                        if(self.arr[k][j-1] == 0):
+                        if(self.arr[k][j-1] == 0 and self.arr[k][j] != 0):
                             self.arr[k][j-1] = self.arr[k][j]
                             self.arr[k][j] = 0
+                            randOrNot = True
+
         if(move == 's'):
             for i in range(x-2, -1, -1):
                 for j in range(i, x-1, 1):
@@ -64,9 +70,11 @@ class driver:
                         # if(self.arr[j][k] == self.arr[j+1][k]):
                         #     self.arr[j+1][k] *= 2
                         #     self.arr[j][k] = 0
-                        if(self.arr[j+1][k] == 0):
+                        if(self.arr[j+1][k] == 0 and self.arr[j][k] != 0):
                             self.arr[j+1][k] = self.arr[j][k]
                             self.arr[j][k] = 0
+                            randOrNot = True
+
         if(move == 'd'):
             for i in range(y-2, -1, -1):
                 for j in range(i, y-1, 1):
@@ -74,35 +82,44 @@ class driver:
                         # if(self.arr[k][j] == self.arr[k][j+1]):
                         #     self.arr[k][j+1] *= 2
                         #     self.arr[k][j] = 0
-                        if(self.arr[k][j+1] == 0):
+                        if(self.arr[k][j+1] == 0 and self.arr[k][j] != 0):
                             self.arr[k][j+1] = self.arr[k][j]
                             self.arr[k][j] = 0
+                            randOrNot = True
+        return randOrNot
 
-    def mergeTile(self, move):
+    def mergeTile(self, move, randOrNot):
+        #randOrNot = False
         if(move == 'w'):
             for i in range(1, x, 1):
                 for j in range(0, y, 1):
-                    if(self.arr[i-1][j] == self.arr[i][j]):
+                    if(self.arr[i-1][j] == self.arr[i][j] and self.arr[i][j] != 0):
                         self.arr[i-1][j] *= 2
                         self.arr[i][j] = 0
+                        randOrNot = True
         if(move == 'a'):
             for i in range(1, y, 1):
                 for j in range(0, x, 1):
-                    if(self.arr[j][i-1] == self.arr[j][i]):
+                    if(self.arr[j][i-1] == self.arr[j][i] and self.arr[j][i] != 0):
                         self.arr[j][i-1] *= 2
                         self.arr[j][i] = 0
+                        randOrNot = True
+
         if(move == 's'):
             for i in range(x-2, -1, -1):
                 for j in range(0, y, 1):
-                    if(self.arr[i+1][j] == self.arr[i][j]):
+                    if(self.arr[i+1][j] == self.arr[i][j] and self.arr[i][j] != 0):
                         self.arr[i+1][j] *= 2
                         self.arr[i][j] = 0
+                        randOrNot = True
         if(move == 'd'):
             for i in range(y-2, -1, -1):
                 for j in range(0, x, 1):
-                    if(self.arr[j][i+1] == self.arr[j][i]):
+                    if(self.arr[j][i+1] == self.arr[j][i] and self.arr[j][i] != 0):
                         self.arr[j][i+1] *= 2
                         self.arr[j][i] = 0
+                        randOrNot = True
+        return randOrNot
 
     def printMat(self, WIN):
         self.palette.boardChange(self.arr, WIN)
