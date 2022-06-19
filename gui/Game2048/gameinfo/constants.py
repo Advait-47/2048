@@ -1,5 +1,6 @@
 import pygame
 
+WIN_WIDTH, WIN_HEIGHT = 600, 800
 WIDTH, HEIGHT = 600, 600
 PADDING = 8
 ROWS, COLS = 4, 4

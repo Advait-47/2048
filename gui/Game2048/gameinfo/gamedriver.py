@@ -12,6 +12,8 @@ random.seed()
 
 
 class driver:
+    score = 0
+
     def __init__(self, WIN):
         self.arr = np.zeros((x, y), int)
         self.palette = Board(WIN)
@@ -78,6 +80,7 @@ class driver:
                 for j in range(0, y, 1):
                     if(self.arr[i-1][j] == self.arr[i][j] and self.arr[i][j] != 0):
                         self.arr[i-1][j] *= 2
+                        self.score += self.arr[i-1][j]
                         self.arr[i][j] = 0
                         randOrNot = True
         if(move == 'a'):
@@ -85,6 +88,7 @@ class driver:
                 for j in range(0, x, 1):
                     if(self.arr[j][i-1] == self.arr[j][i] and self.arr[j][i] != 0):
                         self.arr[j][i-1] *= 2
+                        self.score += self.arr[j][i-1]
                         self.arr[j][i] = 0
                         randOrNot = True
 
@@ -93,6 +97,7 @@ class driver:
                 for j in range(0, y, 1):
                     if(self.arr[i+1][j] == self.arr[i][j] and self.arr[i][j] != 0):
                         self.arr[i+1][j] *= 2
+                        self.score += self.arr[i+1][j]
                         self.arr[i][j] = 0
                         randOrNot = True
         if(move == 'd'):
@@ -100,12 +105,13 @@ class driver:
                 for j in range(0, x, 1):
                     if(self.arr[j][i+1] == self.arr[j][i] and self.arr[j][i] != 0):
                         self.arr[j][i+1] *= 2
+                        self.score += self.arr[j][i+1]
                         self.arr[j][i] = 0
                         randOrNot = True
         return randOrNot
 
     def printMat(self, WIN):
-        self.palette.boardChange(self.arr, WIN)
+        self.palette.boardChange(self.arr, WIN, self.score)
 
         # print("")
         # cellString = "{: <5} "

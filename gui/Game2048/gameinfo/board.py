@@ -8,12 +8,15 @@ pygame.init()
 
 class Board:
     def __init__(self, WIN):
-        WIN.fill(BORDER_COLOR)
+        pass
 
-    def boardChange(self, arr, WIN):
+    def boardChange(self, arr, WIN, score):
         self.arr = arr
         font = pygame.font.SysFont('arial', FONT_SIZE, bold=True)
         WIN.fill(BORDER_COLOR)
+        # WIN.fill(BORDER_COLOR)
+        # WIN.blit(text, textRect)
+
         for i in range(0, ROWS, 1):
             for j in range(0, COLS, 1):
                 if(arr[i][j] != 0):
@@ -29,7 +32,17 @@ class Board:
                 textRect.center = (
                     (SQUARE_SIZE*j)+((j+1)*PADDING)+(SQUARE_SIZE//2), (SQUARE_SIZE*i) + ((i+1)*PADDING) + (SQUARE_SIZE//2))
                 WIN.blit(text, textRect)
-                pygame.display.update()
+
+        text = font.render("Score:", True, WHITE, None)
+        textRect = text.get_rect()
+        textRect.center = (100, 700)  # HEIGHT+((WIN_HEIGHT-HEIGHT)//2)
+        WIN.blit(text, textRect)
+
+        text = font.render(str(score), True, WHITE, None)
+        textRect = text.get_rect()
+        textRect.center = (250, 700)  # HEIGHT+((WIN_HEIGHT-HEIGHT)//2)
+        WIN.blit(text, textRect)
+        pygame.display.update()
 
     def getColor(self, z):
         z = math.log2(z)

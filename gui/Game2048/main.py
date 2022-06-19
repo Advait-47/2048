@@ -6,7 +6,7 @@ from gameinfo.gamedriver import *
 pygame.init()
 FPS = 60
 
-WIN = pygame.display.set_mode((WIDTH, HEIGHT))
+WIN = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
 pygame.display.set_caption('2048')
 
 
