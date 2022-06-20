@@ -34,11 +34,14 @@ class driver:
                 break
 
     def makeAMove(self, move):
+        arr2 = self.arr
         r1 = r2 = r3 = False
         r1 = self.swipeTile(move, r1)
         r2 = self.mergeTile(move, r2)
         r3 = self.swipeTile(move, r3)
-        return (r1 or r2 or r3)
+        return [r1 or r2 or r3, np.array_equal(arr2, self.arr) and self.allFilled(), self.adjCheck()]
+
+        # return (r1 or r2 or r3,over)
 
     def swipeTile(self, move, randOrNot):
         if(move == 'w'):
@@ -113,7 +116,7 @@ class driver:
                         self.arr[j][i] = 0
                         randOrNot = True
 
-        if(self.score > self.highScore):
+        if(self.score > self.highScore):  # sdsd######################
             file = open("hScore.txt", "w")
             file.write(str(self.score))
             file.close()
@@ -137,8 +140,57 @@ class driver:
                     flag = False
         return flag
 
+    def adjCheck(self):
+        for i in range(1, x, 1):
+            for j in range(0, y, 1):
+                if(self.arr[i][j] != 0):
+                    if(self.arr[i][j] == self.arr[i-1][j]):
+                        return False
+                else:
+                    return False
+
+        for i in range(0, x, 1):
+            for j in range(1, y, 1):
+                if(self.arr[i][j] != 0):
+                    if(self.arr[i][j] == self.arr[i][j-1]):
+                        return False
+                else:
+                    return False
+
+        return True
+
     def gameOver(self, WIN):
         self.palette.gameOver(WIN)
+        # flag = True
+        # print("FUCK")
+        # for i in range(0, ROWS):
+        #     for j in range(0, COLS):
+        #         if(self.arr[i][j] != 0):
+        #             for k in range(0, 4, 1):
+        #                 try:
+        #                     if(5 >= 0 and (self.arr[i][j] == self.arr[i+1][j] or self.arr[i+1][j] == 0)):
+        #                         flag = False
+        #                         break
+        #                     if(5 >= 1 and (self.arr[i][j] == self.arr[i-1][j] or self.arr[i-1][j] == 0)):
+        #                         flag = False
+        #                         break
+        #                     if(5 >= 2 and (self.arr[i][j] == self.arr[i][j+1] or self.arr[i][j+1] == 0)):
+        #                         flag = False
+        #                         break
+        #                     if(5 >= 3 and (self.arr[i][j] == self.arr[i][j-1] or self.arr[i][j-1] == 0)):
+        #                         flag = False
+        #                         break
+        #                 except IndexError:
+        #                     print("Gotcha")
+        #                     # self.palette.gameOver(WIN)
+        #                     # pass
+        # print("Gameover")
+        # if(flag):
+        #     self.palette.gameOver(WIN)
+        #     return True
+        # else:
+        #     flag = True
+        #     return False
 
 
 # if __name__ == "__main__":

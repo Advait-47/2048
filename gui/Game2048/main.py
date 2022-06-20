@@ -11,11 +11,10 @@ pygame.display.set_caption('2048')
 
 
 def main():
-    randOrNot = False
+    flags = [False, False]
     run = True
     clock = pygame.time.Clock()
     game = driver(WIN)
-
     game.generateNextCell()
     game.printMat(WIN)
 
@@ -26,32 +25,32 @@ def main():
                 run = False
 
             if(event.type == pygame.KEYDOWN):
-                over = game.allFilled()
                 if(event.key == pygame.K_LEFT or event.key == pygame.K_a):
-                    randOrNot = game.makeAMove("a")
-                    twoLineCode(game, randOrNot)
-                    randOrNot = False
+                    flags = game.makeAMove("a")
+                    print(flags)
+                    twoLineCode(game, flags)
                 if(event.key == pygame.K_RIGHT or event.key == pygame.K_d):
-                    randOrNot = game.makeAMove("d")
-                    twoLineCode(game, randOrNot)
-                    randOrNot = False
+                    flags = game.makeAMove("d")
+                    twoLineCode(game, flags)
                 if(event.key == pygame.K_UP or event.key == pygame.K_w):
-                    randOrNot = game.makeAMove("w")
-                    twoLineCode(game, randOrNot)
-                    randOrNot = False
+                    flags = game.makeAMove("w")
+                    twoLineCode(game, flags)
                 if(event.key == pygame.K_DOWN or event.key == pygame.K_s):
-                    randOrNot = game.makeAMove("s")
-                    twoLineCode(game, randOrNot)
-                    randOrNot = False
+                    flags = game.makeAMove("s")
+                    twoLineCode(game, flags)
+
+                if(flags[1] and flags[2]):
+                    print("It's Over\n")
+                    game.gameOver(WIN)
+                    run = False
+
     pygame.quit()
 
 
-def twoLineCode(game, randOrNot):
-    if(randOrNot):
+def twoLineCode(game, flags):
+    if(flags[0]):
         game.generateNextCell()
         game.printMat(WIN)
-    else:
-        game.gameOver(WIN)
 
 
 main()

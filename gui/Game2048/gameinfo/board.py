@@ -52,7 +52,10 @@ class Board:
         textRect.center = (350, 700)  # HEIGHT+((WIN_HEIGHT-HEIGHT)//2)
         WIN.blit(text, textRect)
 
-        text = font.render(self.highScore, True, WHITE, None)
+        if(score > int(self.highScore)):
+            text = font.render(str(score), True, WHITE, None)
+        else:
+            text = font.render(self.highScore, True, WHITE, None)
         textRect = text.get_rect()
         textRect.center = (500, 700)  # HEIGHT+((WIN_HEIGHT-HEIGHT)//2)
         WIN.blit(text, textRect)
@@ -71,4 +74,21 @@ class Board:
             return(((255//4) * (z % 4))+64, 255, 63)
 
     def gameOver(self, WIN):
-        pass
+        pygame.draw.rect(WIN, WHITE, (0, 0, WIN_WIDTH, WIN_HEIGHT))
+        WIN.set_alpha(127)
+
+        font = pygame.font.SysFont('arial', 40, bold=True)
+
+        text = font.render('Game Over', True, BLACK, None)
+        textRect = text.get_rect()
+        # HEIGHT+((WIN_HEIGHT-HEIGHT)//2)
+        textRect.center = (WIN_WIDTH//2, WIN_HEIGHT//2)
+        WIN.blit(text, textRect)
+
+        font = pygame.font.SysFont('arial', 20, bold=True)
+        text = font.render('Press any key to exit', True, BLACK, None)
+        textRect = text.get_rect()
+        # HEIGHT+((WIN_HEIGHT-HEIGHT)//2)
+        textRect.center = (WIN_WIDTH//2, WIN_HEIGHT//2)
+        WIN.blit(text, textRect)
+        pygame.display.update()
