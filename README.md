@@ -9,6 +9,7 @@ To play, just download all files from main branch, and run main.py file.
 This should work, if not you may need to install pygame and/or numpy
 
 command-
+
 pip install pygame
 
 pip install numpy
