@@ -5,7 +5,6 @@ from gameinfo.gamedriver import *
 
 pygame.init()
 FPS = 60
-
 WIN = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
 pygame.display.set_caption('2048')
 
@@ -15,9 +14,9 @@ def main():
     run = True
     clock = pygame.time.Clock()
     game = driver(WIN)
+
     game.generateNextCell()
     game.printMat(WIN)
-
     while(run):
         clock.tick(FPS)
         for event in pygame.event.get():
@@ -26,31 +25,26 @@ def main():
 
             if(event.type == pygame.KEYDOWN):
                 if(event.key == pygame.K_LEFT or event.key == pygame.K_a):
-                    flags = game.makeAMove("a")
-                    print(flags)
-                    twoLineCode(game, flags)
+                    flags = moveDriver(game, "a")
                 if(event.key == pygame.K_RIGHT or event.key == pygame.K_d):
-                    flags = game.makeAMove("d")
-                    twoLineCode(game, flags)
+                    flags = moveDriver(game, "d")
                 if(event.key == pygame.K_UP or event.key == pygame.K_w):
-                    flags = game.makeAMove("w")
-                    twoLineCode(game, flags)
+                    flags = moveDriver(game, "w")
                 if(event.key == pygame.K_DOWN or event.key == pygame.K_s):
-                    flags = game.makeAMove("s")
-                    twoLineCode(game, flags)
+                    flags = moveDriver(game, "s")
 
                 if(flags[1] and flags[2]):
-                    print("It's Over\n")
                     game.gameOver(WIN)
                     run = False
-
     pygame.quit()
 
 
-def twoLineCode(game, flags):
+def moveDriver(game, move):
+    flags = game.makeAMove(move)
     if(flags[0]):
         game.generateNextCell()
         game.printMat(WIN)
+    return flags
 
 
 main()

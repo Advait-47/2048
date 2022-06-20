@@ -11,14 +11,11 @@ class Board:
         file = open("hScore.txt", "r")
         self.highScore = file.read()
         file.close()
-        pass
 
     def boardChange(self, arr, WIN, score):
         self.arr = arr
         font = pygame.font.SysFont('arial', FONT_SIZE, bold=True)
         WIN.fill(BORDER_COLOR)
-        # WIN.fill(BORDER_COLOR)
-        # WIN.blit(text, textRect)
 
         for i in range(0, ROWS, 1):
             for j in range(0, COLS, 1):
@@ -31,34 +28,33 @@ class Board:
                     text = font.render(" ", True, WHITE, None)
                     pygame.draw.rect(WIN, BLANK_COLOR, (j*(SQUARE_SIZE)+(j+1)*PADDING,
                                      i*(SQUARE_SIZE)+(i+1)*PADDING, SQUARE_SIZE, SQUARE_SIZE))
+
                 textRect = text.get_rect()
                 textRect.center = (
                     (SQUARE_SIZE*j)+((j+1)*PADDING)+(SQUARE_SIZE//2), (SQUARE_SIZE*i) + ((i+1)*PADDING) + (SQUARE_SIZE//2))
                 WIN.blit(text, textRect)
 
-        font = pygame.font.SysFont('arial', 40, bold=True)
-        text = font.render("Score:", True, WHITE, None)
-        textRect = text.get_rect()
-        textRect.center = (100, 700)  # HEIGHT+((WIN_HEIGHT-HEIGHT)//2)
-        WIN.blit(text, textRect)
+        textData = self.getText(WIN, 'arial', 40, True,
+                                "Score:", WHITE, (100, 700))
+        WIN.blit(textData[0], textData[1])
 
-        text = font.render(str(score), True, WHITE, None)
-        textRect = text.get_rect()
-        textRect.center = (200, 700)  # HEIGHT+((WIN_HEIGHT-HEIGHT)//2)
-        WIN.blit(text, textRect)
+        textData = self.getText(WIN, 'arial', 40, True,
+                                str(score), WHITE, (220, 700))
+        WIN.blit(textData[0], textData[1])
 
-        text = font.render("Best:", True, WHITE, None)
-        textRect = text.get_rect()
-        textRect.center = (350, 700)  # HEIGHT+((WIN_HEIGHT-HEIGHT)//2)
-        WIN.blit(text, textRect)
+        textData = self.getText(WIN, 'arial', 40, True,
+                                "Best:", WHITE, (350, 700))
+        WIN.blit(textData[0], textData[1])
 
         if(score > int(self.highScore)):
-            text = font.render(str(score), True, WHITE, None)
+            textData = self.getText(
+                WIN, 'arial', 40, True, str(score), WHITE, (500, 700))
         else:
-            text = font.render(self.highScore, True, WHITE, None)
-        textRect = text.get_rect()
-        textRect.center = (500, 700)  # HEIGHT+((WIN_HEIGHT-HEIGHT)//2)
-        WIN.blit(text, textRect)
+            textData = self.getText(
+                WIN, 'arial', 40, True, self.highScore, WHITE, (500, 700))
+
+        WIN.blit(textData[0], textData[1])
+
         pygame.display.update()
 
     def getColor(self, z):
@@ -74,21 +70,29 @@ class Board:
             return(((255//4) * (z % 4))+64, 255, 63)
 
     def gameOver(self, WIN):
-        pygame.draw.rect(WIN, WHITE, (0, 0, WIN_WIDTH, WIN_HEIGHT))
-        WIN.set_alpha(127)
 
-        font = pygame.font.SysFont('arial', 40, bold=True)
+        s = pygame.Surface((WIN_WIDTH, WIN_HEIGHT))
+        s.set_alpha(127)
+        s.fill((255, 255, 255))
+        WIN.blit(s, (0, 0))
 
-        text = font.render('Game Over', True, BLACK, None)
-        textRect = text.get_rect()
-        # HEIGHT+((WIN_HEIGHT-HEIGHT)//2)
-        textRect.center = (WIN_WIDTH//2, WIN_HEIGHT//2)
-        WIN.blit(text, textRect)
+        textData = self.getText(
+            WIN, 'arial', 40, True, "Game Over", BLACK, (WIN_WIDTH//2, WIN_HEIGHT//2))
+        WIN.blit(textData[0], textData[1])
 
-        font = pygame.font.SysFont('arial', 20, bold=True)
-        text = font.render('Press any key to exit', True, BLACK, None)
-        textRect = text.get_rect()
-        # HEIGHT+((WIN_HEIGHT-HEIGHT)//2)
-        textRect.center = (WIN_WIDTH//2, WIN_HEIGHT//2)
-        WIN.blit(text, textRect)
+        textData = self.getText(
+            WIN, 'arial', 20, True, "Press any key to exit", BLACK, (WIN_WIDTH//2, (WIN_HEIGHT//2)+50))
+        WIN.blit(textData[0], textData[1])
+
         pygame.display.update()
+
+        for event in pygame.event.get():
+            if(event.type == pygame.KEYDOWN):
+                break
+
+    def getText(self, WIN, fontType, fontSize, boldness, text, fontColor, Coords):
+        font = pygame.font.SysFont(fontType, fontSize, bold=boldness)
+        textRendered = font.render(text, True, fontColor, None)
+        textRect = textRendered.get_rect()
+        textRect.center = (Coords)
+        return [textRendered, textRect]
