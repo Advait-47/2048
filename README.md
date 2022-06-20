@@ -10,4 +10,5 @@ This should work, if not you may need to install pygame and/or numpy
 
 command-
 pip install pygame
+
 pip install numpy
