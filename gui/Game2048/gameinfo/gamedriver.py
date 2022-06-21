@@ -13,11 +13,21 @@ random.seed()
 
 class driver:
     score = 0
+    highScore = 0
 
     def __init__(self, WIN):
-        file = open("hScore.txt", "r")
-        self.highScore = int(file.read())
-        file.close()
+        try:
+            file = open("hScore.txt", "r")
+            self.highScore = int(file.read())
+            file.close()
+        except:
+            try:
+                file = open("hScore.txt", "x")
+                file.write("0")
+                file.close()
+            except:
+                pass
+            pass
 
         self.arr = np.zeros((x, y), int)
         self.palette = Board(WIN)
@@ -121,9 +131,14 @@ class driver:
                         randOrNot = True
 
         if(self.score > self.highScore):
-            file = open("hScore.txt", "w")
-            file.write(str(self.score))
-            file.close()
+            try:
+                file = open("hScore.txt", "w")
+                file.write(str(self.score))
+                file.close()
+            except:
+                file = open("hScore.txt", "x")
+                file.write("0")
+                file.close()
 
         return randOrNot
 

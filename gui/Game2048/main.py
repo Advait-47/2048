@@ -15,6 +15,13 @@ def main():
     clock = pygame.time.Clock()
     game = driver(WIN)
 
+    try:
+        file = open("hScore.txt", "x")
+        if(file != None):
+            file.write("0")
+    except:
+        pass
+
     game.generateNextCell()
     game.printMat(WIN)
     while(run):

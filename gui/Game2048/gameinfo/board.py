@@ -8,9 +8,19 @@ pygame.init()
 
 class Board:
     def __init__(self, WIN):
-        file = open("hScore.txt", "r")
-        self.highScore = file.read()
-        file.close()
+        self.highScore = 0
+        try:
+            file = open("hScore.txt", "r")
+            self.highScore = int(file.read())
+            file.close()
+        except:
+            try:
+                file = open("hScore.txt", "x")
+                file.write("0")
+                file.close()
+            except:
+                pass
+            pass
 
     def boardChange(self, arr, WIN, score):
         self.arr = arr
@@ -46,12 +56,16 @@ class Board:
                                 "Best:", WHITE, (350, 700))
         WIN.blit(textData[0], textData[1])
 
-        if(score > int(self.highScore)):
-            textData = self.getText(
-                WIN, 'arial', 40, True, str(score), WHITE, (500, 700))
-        else:
-            textData = self.getText(
-                WIN, 'arial', 40, True, self.highScore, WHITE, (500, 700))
+        try:
+            if(score > int(self.highScore)):
+                textData = self.getText(
+                    WIN, 'arial', 40, True, str(score), WHITE, (500, 700))
+            else:
+                textData = self.getText(
+                    WIN, 'arial', 40, True, str(self.highScore), WHITE, (500, 700))
+        except:
+            print("fuck you")
+            pass
 
         WIN.blit(textData[0], textData[1])
 
