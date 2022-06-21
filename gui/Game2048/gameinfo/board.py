@@ -81,14 +81,10 @@ class Board:
         WIN.blit(textData[0], textData[1])
 
         textData = self.getText(
-            WIN, 'arial', 20, True, "Press any key to exit", BLACK, (WIN_WIDTH//2, (WIN_HEIGHT//2)+50))
+            WIN, 'arial', 20, True, "Press Esc key to exit", BLACK, (WIN_WIDTH//2, (WIN_HEIGHT//2)+50))
         WIN.blit(textData[0], textData[1])
 
         pygame.display.update()
-
-        for event in pygame.event.get():
-            if(event.type == pygame.KEYDOWN):
-                break
 
     def getText(self, WIN, fontType, fontSize, boldness, text, fontColor, Coords):
         font = pygame.font.SysFont(fontType, fontSize, bold=boldness)

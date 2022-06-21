@@ -32,10 +32,24 @@ def main():
                     flags = moveDriver(game, "w")
                 if(event.key == pygame.K_DOWN or event.key == pygame.K_s):
                     flags = moveDriver(game, "s")
+                if(event.key == pygame.K_ESCAPE):
+                    run = False
+                    break
 
                 if(flags[1] and flags[2]):
                     game.gameOver(WIN)
-                    run = False
+                    # while(1):
+                    # pygame.event.clear()
+                    while(1):
+                        for event in pygame.event.get():
+                            if(event.type == pygame.KEYDOWN):
+                                if(event.key == pygame.K_ESCAPE):
+                                    run = False
+                                    break
+                        if(not(run)):
+                            break
+                    if(not(run)):
+                        break
     pygame.quit()
 
 
