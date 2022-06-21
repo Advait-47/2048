@@ -38,8 +38,6 @@ def main():
 
                 if(flags[1] and flags[2]):
                     game.gameOver(WIN)
-                    # while(1):
-                    # pygame.event.clear()
                     while(1):
                         for event in pygame.event.get():
                             if(event.type == pygame.KEYDOWN):
